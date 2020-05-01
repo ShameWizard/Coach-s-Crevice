@@ -30,9 +30,9 @@ class UnconnectedApp extends Component {
   fetchSession = async () => {
     const response = await fetch("/session");
     const body = await response.text();
-    console.log(body);
+
     const parsed = JSON.parse(body);
-    console.log(parsed);
+
     if (!parsed.success) return;
     this.props.dispatch({
       type: "signout"

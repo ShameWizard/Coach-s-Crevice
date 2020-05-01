@@ -23,6 +23,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import EventCreator from "./EventCreator.jsx";
 import CalFooter from "./CalFooter.jsx";
+import { is } from "date-fns/locale";
 
 class UnconnectedCalendar extends Component {
   constructor(props) {
@@ -36,7 +37,8 @@ class UnconnectedCalendar extends Component {
       createdTeams: [],
       createdPlayers: [],
       creatorMode: false,
-      currentTeam: ""
+      currentTeam: "",
+      dateWasClosed: false
     };
   }
 
@@ -302,26 +304,11 @@ class UnconnectedCalendar extends Component {
             onClick={() => this.onDateClick(cloneDay)}
           >
             <div>
-              {/* <div
-                className={`hovdiv ${
-                  this.state.creatorMode === true &&
-                  this.state.dateWasPicked === true &&
-                  isSameDay(day, selectedDate)
-                    ? "hiddendiv"
-                    : ""
-                }`}
-              >
-                <div>{this.eventRenderer(cloneDay)}</div>
-
-                <span className="bg" id="bg">
-                  {formattedDate}
-                </span>
-              </div> */}
-
               <div
                 className={`${
                   this.state.dateWasPicked === true &&
-                  isSameDay(day, selectedDate)
+                  isSameDay(day, selectedDate) &&
+                  this.state.dateWasClosed === false
                     ? "picked"
                     : "hiddendiv"
                 }`}
@@ -369,31 +356,38 @@ class UnconnectedCalendar extends Component {
   }
 
   onDateClick = day => {
-    this.setState({
-      selectedDate: day,
-      dateWasPicked: true,
-      pickedDate: day
-    });
-    this.props.dispatch({
-      type: "dateselected",
-      selectedDate: this.state.selectedDate
-    });
+    console.log("otherfunction was used");
+    if (
+      this.state.selectedDate === day &&
+      this.state.pickedDate === day &&
+      this.state.dateWasPicked === true
+    )
+      return;
+    if (this.state.selectedDate !== day) {
+      this.setState({
+        selectedDate: day,
+        dateWasPicked: true,
+        pickedDate: day,
+        dateWasClosed: false
+      });
+      this.props.dispatch({
+        type: "dateselected",
+        selectedDate: this.state.selectedDate
+      });
+    }
   };
   creatorModeToggle = () => {
     this.setState({ creatorMode: !this.state.creatorMode });
   };
   closePicked = evt => {
+    evt.stopPropagation();
     console.log("function used");
     this.setState({
       dateWasPicked: false,
       selectedDate: new Date(),
-      pickedDate: new Date()
-    });
-    console.log(this.state.dateWasPicked);
-    this.props.dispatch({
-      type: "dateselected",
-      selectedDate: this.state.selectedDate,
-      dateWasPicked: false
+      pickedDate: new Date(),
+      dateWasClosed: !this.state.dateWasClosed,
+      creatorMode: false
     });
   };
 

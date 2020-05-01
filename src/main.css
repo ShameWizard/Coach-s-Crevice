@@ -292,16 +292,16 @@ body {
 .bottom {
   position: relative;
   font-size: 1em;
-  color: var(--bg-color) 0.85;
-  background-color: var(--main-color) 0.85;
+  color: var(--bg-color);
+  background-color: var(--main-color);
   margin-left: 0.2em;
   margin-bottom: 0.5em;
   bottom: 0em;
 }
 .bottom:hover {
-  color: rgb(72, 104, 134, 0.85);
-  background-color: rgb(249, 249, 249, 0.85);
-  border-color: rgb(72, 104, 134, 0.85);
+  color: rgb(72, 104, 134);
+  background-color: rgb(249, 249, 249);
+  border-color: rgb(72, 104, 134);
 }
 .firstrowdiv {
   max-width: auto;
@@ -440,8 +440,11 @@ main {
 }
 .hiddendiv {
   display: none;
-  pointer-events: none;
   transition: translateX() ease-in-out 0.3s;
+}
+.closeddiv {
+  display: none;
+  pointer-events: none;
 }
 .picked {
   min-height: 13em;
@@ -689,7 +692,7 @@ main {
 .bigitalic {
   padding-left: 10px;
   padding-right: 10px;
-  box-shadow: 3px 3px 3px 3px rgb(72, 104, 134, 0.5);
+  box-shadow: 3px 3px 3px 3px rgb(0, 0, 0, 0.3);
   font-style: italic;
   font-size: 5em;
   position: relative;
