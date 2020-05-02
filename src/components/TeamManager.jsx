@@ -29,9 +29,27 @@ class UnconnectedTeamManager extends Component {
     });
   };
   carouselEvents = teamId => {
+    // console.log(this.props.createdEvents);
+    // if ((this.props.createdEvents.length = 0)) {
+    //   return (
+    //     <div>
+    //       <ul className="carousellist">
+    //         <li className="carouselevent">
+    //           <div>-No upcoming events currently scheduled-</div>
+    //         </li>
+    //         <li className="carouselevent">
+    //           <div>-No upcoming events currently scheduled-</div>
+    //         </li>
+    //         <li className="carouselevent">
+    //           <div>-No upcoming events currently scheduled-</div>
+    //         </li>
+    //       </ul>
+    //     </div>
+    //   );
+    // }
     let results = this.props.createdEvents.filter(event => {
       if (
-        this.props.teamid === event.teamId &&
+        teamId === event.teamId &&
         new Date(event.date).getTime() >= new Date(endOfYesterday()).getTime()
       )
         return event;
@@ -55,7 +73,8 @@ class UnconnectedTeamManager extends Component {
               return (
                 <li className="carouselevent">
                   <div>
-                    {event.time} {event.type} @ {event.location}
+                    {event.date.slice(0, 15)}, {event.time} {event.type} @{" "}
+                    {event.location}
                   </div>
                 </li>
               );
@@ -63,8 +82,8 @@ class UnconnectedTeamManager extends Component {
               return (
                 <li className="carouselevent">
                   <div>
-                    {event.time} {event.type} @ {event.location}{" "}
-                    {event.teamName} vs. {event.opponent}
+                    {event.date.slice(0, 15)}, {event.time} {event.type} @{" "}
+                    {event.location} {event.teamName} vs. {event.opponent}
                   </div>
                 </li>
               );
@@ -88,23 +107,26 @@ class UnconnectedTeamManager extends Component {
           </h2>
           <img src={this.state.currentTeam.teamLogo}></img>
         </div>
-        <div className="carousel">{this.carouselEvents()}</div>
+        <div className="carousel">{this.carouselEvents(this.props.teamId)}</div>
 
-        <Link to={`/userhome/${this.state.teamId}`} className="mainblock cally">
+        <Link
+          to={`/userhome/${this.state.teamId}`}
+          className="mainblock1 cally"
+        >
           CALENDAR
         </Link>
         <Link
           to={`/teamroster${this.state.teamId}`}
-          className="mainblock rosterimg"
+          className="mainblock2 rosterimg"
         >
           ROSTER
         </Link>
 
+        {/* <div className="mainblock"></div>
         <div className="mainblock"></div>
         <div className="mainblock"></div>
         <div className="mainblock"></div>
-        <div className="mainblock"></div>
-        <div className="mainblock"></div>
+        <div className="mainblock"></div> */}
       </div>
     );
   };

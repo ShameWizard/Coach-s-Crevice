@@ -168,7 +168,9 @@ class UnconnectedApp extends Component {
                 <UserHome />
                 <TeamManager
                   props={
-                    (this.props.createdTeams, routeProps.match.params.teamId)
+                    (this.props.createdEvents,
+                    this.props.createdTeams,
+                    routeProps.match.params.teamId)
                   }
                   teamId={routeProps.match.params.teamId}
                 />

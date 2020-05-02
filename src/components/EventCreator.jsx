@@ -44,6 +44,7 @@ class UnconnectedEventCreator extends Component {
     });
   };
   eventSubmitter = async evt => {
+    evt.preventDefault();
     const data = new FormData();
     data.append("teamId", this.props.teamId);
     data.append("userEmail", this.props.userEmail);

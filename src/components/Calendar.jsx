@@ -409,7 +409,8 @@ let mapStateToProps = st => {
     createdPlayers: st.createdPlayers,
     currentPage: st.currentPage,
     selectedDate: st.selectedDate,
-    dateWasPicked: st.dateWasPicked
+    dateWasPicked: st.dateWasPicked,
+    currentTeam: st.currentTeam
   };
 };
 let Calendar = connect(mapStateToProps)(UnconnectedCalendar);
