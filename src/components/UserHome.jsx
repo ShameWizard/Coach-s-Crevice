@@ -30,15 +30,16 @@ class UnconnectedUserHome extends Component {
       <ul>
         {this.state.createdTeams.map(team => {
           return (
-            <li className="teamlist uppercase" key={team}>
+            <li className="uppercase" key={team}>
               <Link
+                className="teamlist"
                 key={team}
                 to={{
                   pathname: `/teammanager/${team.teamId}`,
                   state: { currentTeam: team }
                 }}
               >
-                {team.teamName}
+                {team.teamName.slice(0, 10)}
               </Link>
             </li>
           );
@@ -55,27 +56,14 @@ class UnconnectedUserHome extends Component {
         </div>
         <div>
           <ul className="dropdown">
-            <div className="menuicon">chevron_left</div>MANAGE
-            <li className="hoverdrop">
-              <div>{teamList}</div>
-            </li>
+            <div className="menuicon">chevron_left</div>MY TEAMS
+            <li className="hoverdrop">{teamList}</li>
           </ul>
         </div>
-        <div>
-          <div className="dropdown">
-            <div className="menuicon">chevron_left</div>CREATE NEW
-            <ul className="hoverdrop">
-              <Link to="/eventcreator">
-                <li className="eventicon">Event</li>
-              </Link>
-              <Link to="/teamcreator">
-                <li className="teamicon">Team</li>
-              </Link>
-              <Link to="/playercreator" className="playericon">
-                <li className="playericon">Player</li>
-              </Link>
-            </ul>
-          </div>
+        <div className="yellowwrapper">
+          <Link className="btn" to="/teamcreator">
+            New Team
+          </Link>
         </div>
       </div>
     );

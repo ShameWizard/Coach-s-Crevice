@@ -36,7 +36,6 @@
 .homesidebar {
   position: relative;
   z-index: 4;
-  padding-left: 10px;
   list-style: none;
   margin: 0px;
   display: block;
@@ -73,14 +72,21 @@
   font-style: italic;
 }
 .teamlist {
+  list-style-type: none;
+  display: flex;
+  justify-content: flex-end;
+  text-justify: right;
   height: 2em;
-  width: 3em;
-  width: auto;
+  padding: 0.5em;
   border-color: var(--border-color);
-}
-.teamlist > a {
+  background-color: var(--text-color-light);
+  margin-bottom: 0.2em;
+  border-top-left-radius: 0.35em;
+  border-bottom-left-radius: 0.35em;
+
   text-decoration: none;
-  color: var(--text-color);
+  color: var(--bg-color);
+  font-weight: bold;
 }
 .menuicon {
   transform: rotate(270deg);
@@ -111,50 +117,42 @@
 }
 .dropdown {
   border-top: 1px solid var(--text-color-light);
-  margin-top: 10px;
-  padding-left: 0px;
-  margin-bottom: 10px;
+  padding-left: 0em;
+  margin-bottom: 1em;
+  padding-top: 1em;
   font-size: 1.2em;
+  margin-top: 0em;
   align-items: center;
+  justify-content: flex-end;
   transition: all 0.25s ease-in-out;
-}
-.dropdown:hover {
-  transform: translateX(0.2em);
-  color: var(--main-color);
+  list-style: none;
 }
 
 .dropdown:hover .menuicon {
+  transition: all 0.3s ease-in-out;
   transform: rotate(90deg);
   transform: scale(1.25);
 }
 .hoverdrop {
-  padding-left: em;
-  list-style-type: none;
+  margin-top: 1em;
+  list-style: none;
   border: 2px var(--text-color);
   display: inline-block;
   position: relative;
-
+  display: flex;
+  justify-content: flex-end;
+  /* margin-right: 0em; */
   transition: all 0.25 ease-in-out;
 }
 
-.dropdown:hover .hoverdrop {
-  transition: all 0.25s ease-in-out;
-
+.hoverdrop > ul > li:hover {
+  transition: all 0.3s ease-in-out;
+  transform: translateX(-0.2em);
   opacity: 1;
 }
-.hoverdrop > li {
-  color: var(--text-color-light);
-  padding: 0px 1.3em 0px 1.3em;
-  height: 2em;
-  width: 3em;
-  width: auto;
-
-  border-color: var(--border-color);
+.hoverdrop > ul > li:hover .teamlist {
+  background-color: var(--main-color);
 }
-.hoverdrop > li:hover {
-  transform: translateX(0.2em);
-}
-
 .sidebarheader {
   background-color: var(--bg-color);
   justify-items: center;
