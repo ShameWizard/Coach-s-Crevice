@@ -34,6 +34,7 @@ app.post("/eventcreated", upload.none(), async (req, res) => {
   let location = req.body.location;
   let type = req.body.type;
   let opponent = req.body.opponent;
+  let teamId = req.body.teamId;
   let eventCreatingEmail = req.body.userEmail;
   // let team = req.body.team
 
@@ -57,6 +58,7 @@ app.post("/eventcreated", upload.none(), async (req, res) => {
               time: time,
               location: location,
               type: type,
+              teamId: teamId,
               opponent: opponent,
               eventCreator: eventCreatingEmail
             }
@@ -108,7 +110,8 @@ app.post("/teamcreator", upload.single(), async (req, res) => {
               teamAbb: teamAbb,
               teamId: teamId,
               teamLogo: teamLogo,
-              teamCreator: teamCreatingEmail
+              teamCreator: teamCreatingEmail,
+              createdPlayers: ""
             }
           }
         }
@@ -136,6 +139,7 @@ app.post("/playercreator", upload.single(), async (req, res) => {
   let playerId = req.body.playerId;
   let playerImage = req.body.playerId;
   let playerCreatingEmail = req.body.userEmail;
+  let teamId = req.body.teamId;
   try {
     const attemptedUser = await dbo
       .collection("users")
@@ -148,7 +152,7 @@ app.post("/playercreator", upload.single(), async (req, res) => {
     if (attemptedUser) {
       console.log("user player database retrieved, inserting new player");
       await dbo.collection("users").updateOne(
-        { userEmail: playerCreatingEmail },
+        { teamId: teamId },
         {
           $push: {
             createdPlayers: {
@@ -159,7 +163,8 @@ app.post("/playercreator", upload.single(), async (req, res) => {
               sport: sport,
               playerId: playerId,
               playerImage: playerImage,
-              playerCreator: playerCreatingEmail
+              playerCreator: playerCreatingEmail,
+              teamId: teamId
             }
           }
         }
@@ -198,8 +203,7 @@ app.post("/signup", upload.none(), async (req, res) => {
       password: sha1(enteredPassword),
       userId: enteredUserId,
       createdEvents: [],
-      createdTeams: [],
-      createdPlayers: []
+      createdTeams: []
     });
     let sessionId = generateId();
     console.log("generated Id", sessionId);
@@ -247,8 +251,7 @@ app.post("/signin", upload.none(), async (req, res) => {
           userId: attemptedUser.userId,
           userEmail: attemptedUser.userEmail,
           createdEvents: attemptedUser.createdEvents,
-          createdTeams: attemptedUser.createdTeams,
-          createdPlayers: attemptedUser.createdPlayers
+          createdTeams: attemptedUser.createdTeams
         })
       );
     }
@@ -287,8 +290,7 @@ app.get("/session", async (req, res) => {
         userId: attemptedUser.userId,
         createdEvents: attemptedUser.createdEvents,
         createdTeams: attemptedUser.createdTeams,
-        displayName: attemptedUser.displayName,
-        createdPlayers: attemptedUser.createdPlayers
+        displayName: attemptedUser.displayName
       })
     );
   }

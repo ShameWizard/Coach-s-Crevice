@@ -11,7 +11,7 @@ class UnconnectedUserHome extends Component {
       userId: "",
       createdPlayers: [],
       createdEvents: [],
-      createdTeams: "",
+      createdTeams: [],
       currentPage: ""
     };
   }
@@ -20,17 +20,37 @@ class UnconnectedUserHome extends Component {
       createdTeams: this.props.createdTeams
     });
   };
+  condBtnRender = () => {
+    if (
+      this.props.currentPage === "TEAM CREATOR" ||
+      this.props.currentPage === "TEAM MANAGER"
+    )
+      return (
+        <div className="yellowwrapper">
+          <Link to="/userhome" className="btn">
+            Back to Home
+          </Link>
+        </div>
+      );
+    return (
+      <div className="yellowwrapper">
+        <Link className="btn" to="/teamcreator">
+          New Team
+        </Link>
+      </div>
+    );
+  };
   teamListRender = () => {
-    if (this.state.createdTeams === "") {
+    if (this.state.createdTeams === []) {
       console.log("hello!");
-      return <div>-No teams-</div>;
+      return <li className="uppercase">-No Teams Created Yet-</li>;
     }
 
     return (
       <ul>
         {this.state.createdTeams.map(team => {
           return (
-            <li className="uppercase" key={team}>
+            <li className="uppercase">
               <Link
                 className="teamlist"
                 key={team}
@@ -60,11 +80,7 @@ class UnconnectedUserHome extends Component {
             <li className="hoverdrop">{teamList}</li>
           </ul>
         </div>
-        <div className="yellowwrapper">
-          <Link className="btn" to="/teamcreator">
-            New Team
-          </Link>
-        </div>
+        {this.condBtnRender()}
       </div>
     );
   };

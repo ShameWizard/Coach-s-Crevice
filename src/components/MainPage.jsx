@@ -11,13 +11,18 @@ class UnconnectedMainPage extends Component {
       userId: "",
       createdEvents: "",
       createdTeams: "",
-      createdPlayers: ""
+      createdPlayers: "",
+      currentTeam: ""
     };
   }
   componentDidMount = () => {
     this.props.dispatch({
       type: "updatecurrpage",
       currentPage: "Home"
+    });
+    this.props.dispatch({
+      type: "updatecurrteam",
+      currentTeam: this.props.teamId
     });
   };
 }

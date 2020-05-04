@@ -18,8 +18,10 @@ class UnconnectedEventCreator extends Component {
       selectedDate: "",
       selTime: "17:00",
       selLocation: "",
+      selTeam: "",
       savedLocations: [],
-      success: false
+      success: false,
+      currentTeam: ""
     };
   }
 
@@ -38,13 +40,19 @@ class UnconnectedEventCreator extends Component {
       selLocation: evt.target.value
     });
   };
+  teamChangeHandler = evt => {
+    this.setState({
+      selTeam: evt.target.value
+    });
+    console.log(this.state.selTeam);
+  };
   opponentChangeHandler = evt => {
     this.setState({
       selOpponent: evt.target.value
     });
   };
   eventSubmitter = async evt => {
-    evt.preventDefault();
+    console.log(this.state.selTeam);
     const data = new FormData();
     data.append("teamId", this.props.teamId);
     data.append("userEmail", this.props.userEmail);
@@ -53,6 +61,7 @@ class UnconnectedEventCreator extends Component {
     data.append("type", this.state.selType);
     data.append("location", this.state.selLocation);
     data.append("opponent", this.state.selOpponent);
+    data.append("teamId", this.state.selTeam);
     const response = await fetch("/eventcreated", {
       method: "POST",
       body: data
@@ -102,6 +111,21 @@ class UnconnectedEventCreator extends Component {
               <MiniCalendar />
             </div>
             <div>
+              <h4 className="italic">Your Team</h4>
+              <select
+                className="textbox"
+                value={this.props.currentTeam}
+                onChange={this.teamChangeHandler}
+              >
+                <option value="">-none-</option>
+                {this.props.createdTeams.map(team => {
+                  return (
+                    <option value={team.teamId}>
+                      {team.teamCity} {team.teamName}
+                    </option>
+                  );
+                })}
+              </select>
               <h4 className="italic">Time</h4>
               <input
                 className="textbox"
@@ -116,6 +140,7 @@ class UnconnectedEventCreator extends Component {
                 <option value="practice">PRACTICE</option>
                 <option value="special">SPECIAL</option>
               </select>
+
               {this.optionalOpponent()}
               <h4 className="italic">Location</h4>
               <input
@@ -147,7 +172,8 @@ let mapStateToProps = st => {
     createdTeams: st.createdTeams,
     currentPage: st.currentPage,
     selectedDate: st.selectedDate,
-    teamId: st.teamId
+    teamId: st.teamId,
+    currentTeam: st.currentTeam
   };
 };
 

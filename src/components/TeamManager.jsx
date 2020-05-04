@@ -24,7 +24,10 @@ class UnconnectedTeamManager extends Component {
     });
     this.props.dispatch({
       type: "updatecurrpage",
-      currentPage: "TEAM MANAGER",
+      currentPage: "TEAM MANAGER"
+    });
+    this.props.dispatch({
+      type: "updatecurrteam",
       currentTeam: this.state.currentTeam
     });
   };
@@ -96,16 +99,14 @@ class UnconnectedTeamManager extends Component {
     return (
       <div className="gridwrapper">
         <div className="blockheader">
-          <div>
-            <Link to="/userhome" id="invert" className="btn">
-              Back to Home
-            </Link>
-          </div>
-
-          <h2 className="uppercase hovdivtitle">
+          <h2 className="capitalized highertitle">
+            {this.state.currentTeam.teamCity}
+          </h2>
+          <h2 className="uppercase lowertitle">
             {this.state.currentTeam.teamName}
           </h2>
           <img src={this.state.currentTeam.teamLogo}></img>
+          <h2 className="italic inv">Upcoming Events</h2>
         </div>
         <div className="carousel">{this.carouselEvents(this.props.teamId)}</div>
 

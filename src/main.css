@@ -45,7 +45,16 @@
   border: 1px solid var(--text-color-light);
   border-top: 0px solid var(--border-color);
 }
-
+.homesidebar > div {
+  display: flex;
+  text-justify: center;
+  justify-content: center;
+  align-items: center;
+}
+.homesidebar > div > h2 {
+  text-justify: center;
+  text-align: center;
+}
 .eventicon {
   list-style-image: url(/event.png);
 }
@@ -394,10 +403,26 @@ main {
   transition: all ease 0.2s;
 }
 .hovdivtitle {
-  margin-left: 10px;
+  margin-left: 1em;
   font-size: 1.8em;
   font-style: italic;
   color: var(--border-color);
+}
+.highertitle {
+  margin: 0em;
+  margin-bottom: -0.5em;
+  font-size: 1.8em;
+  color: var(--border-color);
+
+  font-style: italic;
+  text-shadow: 5px 5px rgba(0, 0, 0, 0.5);
+}
+.lowertitle {
+  padding: 0em;
+  margin: 0em;
+  margin-left: 0.5em;
+  font-size: 2.5em;
+  color: var(--neutral-color);
 }
 .circle {
   font-weight: bold;
@@ -493,23 +518,24 @@ main {
 .gridwrapper {
   padding: 1em;
   margin: 1em;
-  background-color: rgba(72, 104, 134, 0.8);
+  background-color: rgba(72, 104, 134);
   display: grid;
   width: 100%;
   height: 100%;
   gap: 1em;
   column-gap: 0em;
-  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-columns: 20% 20% 20% 20% 20%;
   grid-template-rows: auto auto;
   grid-template-areas:
-    "blockheader carousel carousel carousel"
-    "mainblock1 mainblock1 mainblock2 mainblock2";
+    "blockheader mainblock1 mainblock1 mainblock2 mainblock2"
+    "carousel carousel carousel carousel carousel";
 }
 .blockheader {
   grid-area: blockheader;
   padding: 1em;
-  display: flex;
-  flex-direction: column;
+  display: inline-block;
+  width: auto;
+  height: auto;
 }
 .carousel {
   background-image: url(/jumbo.jpg);
@@ -536,6 +562,9 @@ main {
   width: 200%;
   justify-content: space-around;
   list-style: none;
+}
+.carouselevent {
+  margin-right: 1em;
 }
 @keyframes slideshow {
   0% {
@@ -565,6 +594,7 @@ main {
   text-decoration: none;
   position: relative;
   display: inline-block;
+  justify-content: right;
   align-items: center;
   width: 95%;
   border: 5px solid var(--border-color);

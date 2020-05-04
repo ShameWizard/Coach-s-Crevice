@@ -45,13 +45,17 @@ class UnconnectedCalendar extends Component {
   componentDidMount = () => {
     this.props.dispatch({
       type: "updatecurrpage",
-      currentPage: "CALENDAR",
+      currentPage: "CALENDAR"
+    });
+    this.props.dispatch({
+      type: "updatecurrteam",
       currentTeam: this.props.teamId
     });
     this.setState({
       createdEvents: this.props.createdEvents,
       userEmail: this.props.userEmail
     });
+    this.teamFetcher();
   };
 
   nextMonth = () => {
@@ -65,7 +69,12 @@ class UnconnectedCalendar extends Component {
       currentMonth: subMonths(this.state.currentMonth, 1)
     });
   };
-
+  teamFetcher = () => {
+    if (this.props.teamId === undefined) return { teamName: "" };
+    return this.state.createdTeams.find(team => {
+      team.teamId === this.props.currentTeam;
+    });
+  };
   renderHeader = () => {
     const dateFormat = "MMMM yyyy";
     return (
@@ -217,6 +226,7 @@ class UnconnectedCalendar extends Component {
         return event;
       }
     });
+
     if (results.length === 0) {
       return (
         <div>

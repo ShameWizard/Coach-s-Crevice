@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { RadioGroup, Radio } from "react-radio-group";
 import MustBeLoggedIn from "./MustBeLoggedIn.jsx";
+import { Redirect } from "react-router-dom";
 
 class UnconnectedTeamCreator extends Component {
   constructor(props) {
@@ -27,6 +28,10 @@ class UnconnectedTeamCreator extends Component {
     this.props.dispatch({
       type: "updatecurrpage",
       currentPage: "TEAM CREATOR"
+    });
+    this.props.dispatch({
+      type: "updatecurrteam",
+      currentTeam: this.props.teamId
     });
   };
   teamIdGenerator = () => {
@@ -84,11 +89,14 @@ class UnconnectedTeamCreator extends Component {
     console.log(img);
   };
   render = () => {
-    if (this.props.userEmail === "" || this.props.loggedIn === false) {
+    if (this.state.redirect === true) {
       return (
-        <div>
-          <MustBeLoggedIn />
-        </div>
+        <Redirect
+          to={{
+            pathname: `/teammanager/${team.teamId}`,
+            state: { currentTeam: team }
+          }}
+        />
       );
     }
     return (

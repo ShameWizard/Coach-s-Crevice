@@ -6,7 +6,6 @@ const initialState = {
   userId: "",
   createdEvents: [],
   createdTeams: [],
-  createdTeams: [],
   selectedDate: "",
   currentTeam: "",
   currentPage: ""
@@ -21,7 +20,6 @@ let reducer = (state, action) => {
       loggedIn: true,
       createdEvents: action.createdEvents,
       createdTeams: action.createdTeams,
-      createdPlayers: action.createdPlayers,
       displayName: action.displayName
     };
   }
@@ -33,7 +31,6 @@ let reducer = (state, action) => {
       loggedIn: true,
       createdEvents: action.createdEvents,
       createdTeams: action.createdTeams,
-      createdPlayers: action.createdPlayers,
       displayName: action.displayName
     };
   }
@@ -69,7 +66,12 @@ let reducer = (state, action) => {
   if (action.type === "updatecurrpage") {
     return {
       ...state,
-      currentPage: action.currentPage,
+      currentPage: action.currentPage
+    };
+  }
+  if (action.type === "updatecurrteam") {
+    return {
+      ...state,
       currentTeam: action.currentTeam
     };
   }
